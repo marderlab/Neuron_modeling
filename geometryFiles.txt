@@ -1,0 +1,5 @@
+/home/ted/data/morphology/798_032_63x_NA_05.hoc
+/home/ted/data/morphology/803_133_63x_NA_11.hoc
+/home/ted/data/morphology/803_151_63x_IM_69.hoc
+/home/ted/data/morphology/836_095_63X_IM_34.hoc
+/home/ted/data/morphology/836_095_63X_IM_34_NoLoops.hoc

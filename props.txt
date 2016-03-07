@@ -1,0 +1,47 @@
+[
+ {
+  "matchVal": 0, 
+  "channels": {
+   "pas": {
+    "e": 0.0, 
+    "g": 9.9999999999999995e-07
+   }
+  }, 
+  "values": {
+   "Ra": 119.99999999999996, 
+   "cm": 1.0
+  }, 
+  "matchProp": "branchOrder", 
+  "name": "Soma"
+ }, 
+ {
+  "matchVal": true, 
+  "channels": {
+   "pas": {
+    "e": 0.0, 
+    "g": 9.9999999999999995e-07
+   }
+  }, 
+  "values": {
+   "Ra": 29.999999999999996, 
+   "cm": 1.0
+  }, 
+  "matchProp": "isTerminal", 
+  "name": "Tip"
+ }, 
+ {
+  "matchVal": null, 
+  "channels": {
+   "pas": {
+    "e": 0.0, 
+    "g": 9.9999999999999995e-07
+   }
+  }, 
+  "values": {
+   "Ra": 59.999999999999972, 
+   "cm": 1.0
+  }, 
+  "matchProp": null, 
+  "name": "Middle"
+ }
+]

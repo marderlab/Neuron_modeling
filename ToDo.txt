@@ -1,0 +1,36 @@
+Get euclidean location of center of neuropil?
+  mean location of non-soma, non-axon nodes (or maybe tips)
+Compute average branch length for stochastic growth model
+
+in peelLength:
+  investigate why sometimes fit routine fails
+  deal with noise in a sensible fashion
+
+in NeuronGeometry:
+  Better tagging of specific compartments in soma
+  Replace _axons, _axonsBranch with properties ?
+  Reintroduce 1-node compartments
+  Get rid of non-circular nodes
+    Make compartments, segments fundamentally contain
+      surfaceArea
+      crossSectionArea
+      length
+      volume
+
+neuron simulation:
+  rationalize naming scheme (probably merge neuron_simulate.py with
+    neuron_simulateGeometry.py)
+    -make compatible with non-circular geometries
+  make compatible with c++ simulate_neuron.bin
+  
+
+Create code to extract traces from .abf files
+
+include noise-generation code rather than making calls to system
+  This would entail moving to python instead of python3, since numpy doesn't
+  work with python3 in ubuntu yet.
+
+neuron_createModelHocFile.py:
+  better mechanism for assigning external and internal calcium concentrations,
+    near bottom of writeModelHocFile
+  code hygiene

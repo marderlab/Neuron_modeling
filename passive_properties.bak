@@ -1,0 +1,51 @@
+[
+ {
+  "matchTag": "Soma", 
+  "matchProp": "branchOrder", 
+  "channels": {
+   "pas": {
+    "e": 0.0, 
+    "g": 0.0001
+   }
+  }, 
+  "values": {
+   "Ra": 170, 
+   "cm": 1
+  }, 
+  "matchVal": 0, 
+  "name": "Soma"
+ }, 
+ {
+  "matchVal": [
+   0, 
+   1
+  ], 
+  "channels": {
+   "pas": {
+    "e": 0.0, 
+    "g": 1e-07
+   }
+  }, 
+  "values": {
+   "Ra": 170, 
+   "cm": 1
+  }, 
+  "matchProp": "centripetalOrder", 
+  "name": "Tip"
+ }, 
+ {
+  "matchVal": null, 
+  "channels": {
+   "pas": {
+    "e": 0.0, 
+    "g": 1.78e-05
+   }
+  }, 
+  "values": {
+   "Ra": 170, 
+   "cm": 1
+  }, 
+  "matchProp": null, 
+  "name": "Middle"
+ }
+]

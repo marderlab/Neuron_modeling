@@ -1,0 +1,246 @@
+0.7.25 in neuron_populationCellProperties:
+         handle more than two cell types
+         improved plot quality (legend, consistant coloring)
+
+0.7.24 Bugfix: in NeuronGeometry, segment neighborhood at specific location was
+         not always transitive
+
+0.7.23 in NeuronGeometry.getProperties()
+         Added new property: Path Length (from Soma to tips)
+         changed _getListStats() to _dispListStats(), since returning values
+           from that function were no longer used
+
+0.7.22 NeuronGeometry.getProperties() now reports units
+       neuron_populationCellProperties now adds units to axes labels
+
+0.7.21 neuron_populationCellProperties can now save plots to .pdf files instead
+         of drawing them
+
+0.7.20 updated help information for some scripts (argparse includes defaults)
+
+0.7.19 updated NeuronGeometry and neuron_populationCellProperties.py so that:
+         Properties that are lists (e.g. tortuosities) are only saved as lists
+         Properties that are lists are automatically grouped into cell types
+           and plotted as list-medians vs cell type
+         Improved passive parameters in passive_properties.txt
+
+0.7.18 added "Poison pill" method to robust_map (add "None" to input queue to
+         signal worker shutdown)
+       in NeuronGeometry:
+         added getBranchAngle() to compute angles between segments
+         compute branchAngles in Geometry.getProperties()
+         BUGFIX: Segment.coordAt() returned incorrect coordinates sometimes
+      now using argparse in neuron_populationCellProperties
+
+0.7.17 in NeuronGeometry:
+         Fixed bug that caused Soma to have centripetalBranchOrder == 0
+         mergeBranchesByOrder now superceded by mergeBrancesByDistanceToEdge
+
+0.7.16 in NeuronGeometry:
+         created geometry.getProperties, which calculates and returns a dict of
+           neuron properties (replaces demoRead in neuron_readExportedGeometry)
+         mergeBranchesByOrder now creates array geometry.mergedBranches rather
+           than mangling geometry.branches
+         mergeBranchesByOrder now works correctly even in the presence of loops
+
+0.7.15 using argparse to pass options to peelLength
+
+0.7.14 Refinements to peelLength routine
+       Updated neuron_simulateGeometry:
+         uses multiprocessing to avoid having to restart python environment
+           for repeated simulations
+         now possible to specify neuron model parameters externally
+       NeuronGeometry:
+         Bugfix: Some branches had neighbors that weren't branches
+         renamed centripetalBranchOrder centripetalOrder
+         renamed calcReverseBranchOrder calcCentripetalOrder
+         Bugfix: centripetalOrder could hang if there were loops in the neuron
+       neuron_readExportedGeometry:
+         now takes arguments controlling optional plotting or print-out of
+           information
+         many more properties measured
+       created neuron_batchSimulate.py to search a database for "optimal"
+         passive neuron models
+       create neuron_populationCellProperties.py to measure the properties of
+         a population of different neuron geometries
+
+0.7.13 added neuron_simulateGeometry.py to use NEURON to simulate passive
+         models on .hoc geometries
+       edited peelLength.py to be slightly more robust
+         note: restricted time window for non-linear fit, so may have reduced
+               the utility of the fit
+
+0.7.12 in NeuronGeometry, neuron_readExportedGeometry()
+         added .pathTo() in PathDistanceFinder
+         added .tortuosityTo() in PathDistanceFinder
+         added .tortuosity property in Segment
+         added .pathTortuosity() in NeuronGeometry
+           and deprecated it immediately
+         added .getTips() in HocGeometry
+         removed deprecated HocPathDistanceFinder class
+
+0.7.11 in NeuronGeometry, neuron_readExportedGeometry()
+         Fixed reverse branch-order labeling
+         Temporarily removed 1-node compartments
+         Now access soma with geometry.soma property
+
+0.7.10 in NeuronGeometry, neuron_readExportedGeometry()
+         Changed neighbors from dict to two lists: neighbors -> neighbors +
+           neighborLocations. With this change, even small loops are okay, e.g.
+           two segments form a loop together, or one segment loops on itself
+         PathDistanceFinder can now handle geometries with loops correctly
+         in NeuronGeometry.checkConnectivity, Improved loop detection
+         More detailed info when a .hoc file's connection location is incorrect
+         Better detection/handling of loops
+         Warning about merging branches
+
+0.7.9  in NeuronGeometry, neuron_readExportedGeometry()
+         Detect loops
+         Print warnings in red to improve discoverability of problems in data
+
+0.7.8  in NeuronGeometry, neuron_readExportedGeometry()
+         renamed Segment.neighborsGeneral -> Segment.neighbors
+         moved _findSegmentConnectionLocation into _connectSegments
+            (it's not a real feature, only needed due to buggy .hoc files!)
+         detect and report full location of loops in checkConnectivity
+         Got rid of unneccessary underscores
+
+0.7.7  in NeuronGeometry, neuron_readExportedGeometry()
+         Removed .neighbors, .neighbors0, .neighbors1 from Segment
+           (now all neighbor information exclusively in .neighborsGeneral)
+         Renamed Compartment._nodes -> Compartment.nodes
+           changed OneNodeCompartment.node and TwoNodeCompartment.node0 / node1
+             to be properties rather than copies of the data
+         Changed findSoma(), findAxons() to find segments in addition to
+           branches
+         Print warnings in bold red so they don't get ignored
+         Add code to find correct connection when buggy .hoc file has
+           incorrect connection location for two segments
+         In readGeometry()
+           don't rename segments in sanity check
+           if sanity check fails, check again after sorting
+        PathDistanceFinder now allows connections in arbitrary locations, will
+          report shortest distance (assuming no loops)
+        Better propagation of names and tags between compartments, segments,
+          and branches
+
+0.7.6  Additional changes to NeuronGeometry, neuron_readExportedGeometry
+         for greater compatibility with Amira .hoc files
+
+0.7.5  Bugfix: peelLength.py will work when farther from site of injection
+          -finds window where response is exponential
+       Bugfix: improved compatability of neuron_readExportedGeometry with
+         .hoc files created by Amira
+
+0.7.4  Added peelLength.py to fit exponential response to step currents
+
+0.7.3  Deprecated HocPathDistanceFinder in favor of PathDistanceFinder
+
+0.7.2  for NeuronGeometry/neuron_readExportedGeometry:
+         Bugfix: numerous errors in getElectrotonicLengths()
+         Bugfix: numerous errors finding Soma
+           HocGeometry.getSomaIndex() now uses the results of findSoma()
+           added Segment.centroidPosition() to get rough position of centroid
+         Increased speed by removing nodes in one batch:
+           -in NeuronGeometry._connectSegments(), add node to to _removeNodes
+           -then keep wanted nodes via list comprehension
+         eliminated NeuronGeometry._getNetworkDistance()
+
+0.7.1  Added PathDistanceFinder.getElectrotonicLengths() to NeuronGeometry.py
+       Changed neuron_plot_trace.py to show differences on overlap region when
+         traces have different lengths
+       Added ability to ready .hoc files created by Amira
+
+0.7.0  Numerous changes, forgot to save version (!!!)
+       NeuronGeometry class and neuron_readExportedGeometry.py updated:
+         -bug fixes 
+         -add path-finding classes PathDistanceFinder, HocPathDistanceFinder
+
+0.6.4  Add plots for visualizing branch statistics vs branch order
+       Add capability to merge branches based on reverse-counting branch order
+       Add neighborsGeneral to Segment
+
+0.6.3  Altered Scholl analysis to use distance of straightened-out neurites by
+         default
+
+0.6.2  Improved figure quality of neuron_plot_perturbed.py
+       created neuron_view_progress.py to visualize progress of ongoing (or
+         completed fit
+
+0.6.1  Kludge: zero error between traces resulted in plotting/fitting problems,
+         so any error <= 0 was changed to 1.0e-20
+
+0.6.0  Removed neuron_createModelHocFile.py and replaced it with
+         neuron_writeModelHocFile.py, which reads the same startup information
+         as the c++ simulation code I've written
+         NOTE: this breaks the old neuron_simulate.py, which must now be
+         updated
+
+0.5.3  Moved neuron_readStartupFile.py to neuron_getStartupInfo.py
+         -gets geometry as well as startup information, and can read in an
+          overriding parameters file
+       Updated neuron_plot_trace.py to be more generous in considering traces
+         duplicates of each other
+
+0.5.2  Added neuron_recalcResume.py to the project
+
+0.5.1  neuron_plot_trace.py now detects traces with identical names, and
+         instead of plotting them separately, plots them overlaid and plots
+         their differences
+       neuron_makeAccuracyCurve.py now produces more figure-friendly plots
+       removed neuron_calcToleranceCurve.py
+       removed neuron_perturb.py
+       removed neuron_validate.py
+
+0.5.0  neuron_plot_perturb.py visualizes the output of perturbneuron.bin
+       neuron_plot_trace.py now can simultaneously plot traces from multiple
+         files
+
+0.4.1  Decreased tol for neuron_simulate.py to more reasonable levels
+       neuron_makeAccuracyCurves:
+         -Does not resimulate if traces already exist, even if startup file
+          changes
+         -Prints out less junk
+         -Slightly faster computation of max error
+
+0.4.0  Added neuron_makeAccuracyCurves.py
+         -varies tolerance of simulate_neuron.bin, NEURON and tracks accuracy
+          and run time
+         -improvement on neuron_makeAccuracyCurves
+       Added neuron_testParams.py
+         -simulates parameters with simulate_neuron.bin and NEURON, compairing
+          the output traces
+
+0.3.1  Added support for comments in model parameter files to:
+         neuron_simulate.py, neuron_createModelHocFile.py
+       Changed neuron_calcToleranceCurve.py, neuron_perturb.y, and
+         neuron_createTargetModel.py to use method for reading parameters
+         included in neuron_simulate.py
+       Corrected handling of comments in neuron_perturb.py::createStartupFile()
+         and neuron_createModelHocFile.py::getGeo()
+       Fixed bug assigning initial internal calcium concentration in
+         neuron_createModelHocFile.py
+       Increased default tolerance in neuron_simulate.py
+
+0.3.0  Added CHANGES.txt
+       Added neuron_calcToleranceCurve.py, which determines the tolerance that
+         must be requested in NEURON to generate a solution with a given
+         tolerance
+       Altered neuron_createTargetModel.py:
+         ensure noise power = -1.0 is consistantly correct
+         accepts an optional argument specifying tolerance
+         ability to turn off additive noise
+         uses file.write() instead of redirecting stdout
+         correct bug when gBar_As is not section-specific
+         code hygiene
+       Altered neuron_simulate.py:
+         accepts an optional argument specifying tolerance
+         enabled fixed-step integration
+         resolve run_fitneuron vs runFitneuron:
+           kept run_fitneuron functionality, but renamed to runFitneuron
+         removed parameter-free constructor for SimHocData
+         code hygiene
+       Altered neuron_perturb.py:
+         fixed typo in getParamInfo arguments that *should* have broken it(!?!)
+         code hygiene
+         
